@@ -1,4 +1,4 @@
-# <ADR number>: Title
+# ADR #: Title
  
 ## Status
  
