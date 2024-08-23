@@ -1,5 +1,0 @@
-project:
-  name: pics-validator
-  tz: America/Toronto
-  adrFolder: ./docs/adr
-  packages: []
