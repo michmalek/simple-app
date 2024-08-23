@@ -216,6 +216,7 @@
   "MD043": {
     // List of headings
     "headings": [
+      "*",
       "## Context & Problem Statement",
       "## Decision Drivers",
       "## Considered Options",
