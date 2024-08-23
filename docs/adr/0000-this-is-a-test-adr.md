@@ -2,7 +2,7 @@
 
 | | |
 | -------- | ------- |
-| **Status:**  | Published |
+|    **Status:**  | Published |
 | **Author:** | [ List of Authors ]     |
 | **Date:**    | 2024-08-05    |
 | **RFC:**    | [ Backlink to the RFC Doc (if applicable) ]  |
