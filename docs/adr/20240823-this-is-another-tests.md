@@ -1,4 +1,4 @@
-# ADR Template
+# This is Another Test
 
 | | |
 | -------- | ------- |
