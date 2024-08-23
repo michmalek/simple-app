@@ -1,8 +1,8 @@
-# CXE-ADR0000: This is a Test ADR
+# CXE-A0000: This is a Test ADR
 
 | | |
 | -------- | ------- |
-|    **Status:**  | Published |
+| **Status:**  | Published |
 | **Author:** | [ List of Authors ]     |
 | **Date:**    | 2024-08-05    |
 | **RFC:**    | [ Backlink to the RFC Doc (if applicable) ]  |
