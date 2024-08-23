@@ -2,9 +2,9 @@
 
 | | |
 | -------- | ------- |
-| **Status:**  | [ Drafting \| Reviewing \| Published \| Deprecated \| Superseded ] |
+| **Status:**  | Drafting |
 | **Author:** | [ List of Authors ]     |
-| **Date:**    | [ Date of last modification ]    |
+| **Date:**    | 2024-08-05    |
 | **RFC:**    | [ Backlink to the RFC Doc (if applicable) ]  |
 | **Supersedes:**    | [ Backlink to the ADR Doc (if applicable) ]  |
 | **Deprecates:**    | [ Backlink to the ADR Doc (if applicable) ]  |
