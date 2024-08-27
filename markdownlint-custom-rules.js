@@ -48,7 +48,7 @@ module.exports = [
       if (tableStartIndex === -1) {
         onError({
           lineNumber: 1,
-          detail: "Table pattern is missing or incorrect.",
+          detail: "Table pattern is missing or incorrect. Please see ADR template for example table that should be present in every ADR.",
         });
         return;
       }
