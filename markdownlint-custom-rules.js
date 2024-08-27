@@ -78,18 +78,16 @@ module.exports = [
     tags: ["headings"],
     function: function headingPattern(params, onError) {
       const validHeadings = [
-        "## Context & Problem Statement",
-        "## Decision Drivers",
-        "## Considered Options",
-        "## Decision Outcome",
-        "### Positive Consequences",
-        "### Negative Consequences",
-        "## Resources",
+        /^## Context & Problem Statement\s*$/,
+        /^## Decision Drivers\s*$/,
+        /^## Considered Options\s*$/,
+        /^## Decision Outcome\s*$/,
+        /^## Resources\s*$/,
       ];
 
       const optionalHeadings = [
-        "### Positive Consequences",
-        "### Negative Consequences",
+        /^### Positive Consequences\s*$/,
+        /^### Negative Consequences\s*$/,
       ];
 
       let inOptionalSection = false;
@@ -101,20 +99,20 @@ module.exports = [
         if (token.type === "heading_open") {
           const heading = params.tokens[i + 1].line;
 
-          if (heading === "## Decision Outcome") {
+          if (heading.match(/^## Decision Outcome\s*$/)) {
             inOptionalSection = true;
           }
 
           if (inOptionalSection) {
             if (
-              !optionalHeadings.includes(heading) &&
-              heading.startsWith("##") &&
-              heading !== "## Resources"
+              !optionalHeadings.some((pattern) => pattern.test(heading)) &&
+              heading.match(/^##/) &&
+              !heading.match(/^## Resources\s*$/)
             ) {
               inOptionalSection = false;
             } else if (
-              !optionalHeadings.includes(heading) &&
-              heading.startsWith("###")
+              !optionalHeadings.some((pattern) => pattern.test(heading)) &&
+              heading.match(/^###/)
             ) {
               onError({
                 lineNumber: token.lineNumber,
@@ -124,8 +122,8 @@ module.exports = [
           }
 
           if (
-            !validHeadings.includes(heading) &&
-            !optionalHeadings.includes(heading)
+            !validHeadings.some((pattern) => pattern.test(heading)) &&
+            !optionalHeadings.some((pattern) => pattern.test(heading))
           ) {
             onError({
               lineNumber: token.lineNumber,
@@ -133,7 +131,7 @@ module.exports = [
             });
           }
 
-          if (heading === "## Resources") {
+          if (heading.match(/^## Resources\s*$/)) {
             inOptionalSection = false;
           }
         }

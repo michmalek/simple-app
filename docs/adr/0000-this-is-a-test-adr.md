@@ -13,7 +13,7 @@
 
 In the Context & Problem Statement section, we describe the circumstances that have led to the need for a decision. For example: "Our web application's user base has grown significantly over the past year, leading to increased load on our servers. The current monolithic architecture is struggling to handle concurrent user requests efficiently, resulting in slow response times and a poor user experience. There is a clear need to re-evaluate our architectural approach to ensure scalability and maintainability as we continue to grow."
 
-## Decision Drivers
+## Decision Drivers  
 
 The Decision Drivers section outlines the key factors that influence the decision-making process. An example paragraph might read: "The decision to refactor our application's architecture is driven by several critical factors: performance under load, scalability to accommodate future growth, ease of maintenance, and the ability to deploy updates with minimal downtime. Additionally, we must consider the cost implications of any changes and the potential disruption to our current operations."
 
@@ -25,11 +25,11 @@ In the Considered Options section, we enumerate the different solutions that wer
 
 The Decision Outcome section announces the chosen solution and the rationale behind it. An example might be: "After careful consideration, we have decided to refactor our application into a microservices architecture. This approach aligns with our need for scalability and will allow individual services to be scaled independently based on demand. It also facilitates easier maintenance and faster deployment cycles, which are crucial for our agile development process."
 
-### Positive Consequences <!-- optional -->
+### Positive Consequences
 
 In the Positive Consequences subsection, we detail the benefits of the decision. For example: "Adopting a microservices architecture is expected to lead to improved application performance, as services can be scaled horizontally to meet demand. It will also enable our development teams to work more autonomously and deploy updates with less coordination, thereby increasing our overall agility."
 
-### Negative Consequences <!-- optional -->
+### Negative Consequences
 
 The Negative Consequences subsection acknowledges potential drawbacks. An example paragraph might state: "While the move to microservices promises several benefits, it also introduces complexity in service coordination and potential latency due to network communication between services. Additionally, the initial transition will require significant effort and may temporarily disrupt our development workflow."
 
