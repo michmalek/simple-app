@@ -72,4 +72,72 @@ module.exports = [
       }
     },
   },
+  {
+    names: ["heading-pattern"],
+    description: "Enforce specific headings and optional subheadings",
+    tags: ["headings"],
+    function: function headingPattern(params, onError) {
+      const validHeadings = [
+        "## Context & Problem Statement",
+        "## Decision Drivers",
+        "## Considered Options",
+        "## Decision Outcome",
+        "### Positive Consequences",
+        "### Negative Consequences",
+        "## Resources",
+      ];
+
+      const optionalHeadings = [
+        "### Positive Consequences",
+        "### Negative Consequences",
+      ];
+
+      let inOptionalSection = false;
+
+      for (let i = 1; i < params.tokens.length; i++) {
+        // Start from 1 to skip the title
+        const token = params.tokens[i];
+
+        if (token.type === "heading_open") {
+          const heading = params.tokens[i + 1].line;
+
+          if (heading === "## Decision Outcome") {
+            inOptionalSection = true;
+          }
+
+          if (inOptionalSection) {
+            if (
+              !optionalHeadings.includes(heading) &&
+              heading.startsWith("##") &&
+              heading !== "## Resources"
+            ) {
+              inOptionalSection = false;
+            } else if (
+              !optionalHeadings.includes(heading) &&
+              heading.startsWith("###")
+            ) {
+              onError({
+                lineNumber: token.lineNumber,
+                detail: `Only "### Positive Consequences" and "### Negative Consequences" are allowed between "## Decision Outcome" and "## Resources". Found: ${heading}`,
+              });
+            }
+          }
+
+          if (
+            !validHeadings.includes(heading) &&
+            !optionalHeadings.includes(heading)
+          ) {
+            onError({
+              lineNumber: token.lineNumber,
+              detail: `Unexpected heading: ${heading}`,
+            });
+          }
+
+          if (heading === "## Resources") {
+            inOptionalSection = false;
+          }
+        }
+      }
+    },
+  }
 ];
