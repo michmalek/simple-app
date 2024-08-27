@@ -21,7 +21,7 @@ module.exports = [
     function: function tablePattern(params, onError) {
       const lines = params.lines;
       const tableHeaderPattern = /^\|[ ]+\|[ ]+\|$/;
-      const tableSeparatorPattern = /^\| ---[-]+ \| ---[-]+ \|$/;
+      const tableSeparatorPattern = /^\|[ ]*[-]+[ ]*\|[ ]*[-]+[ ]*\|$/;
       const patterns = [
         /^\| \*\*Status:\*\*[ ]+\| (Drafting|Reviewing|Published|Deprecated|Superseded) \s*\|$/,
         /^\| \*\*Author:\*\*[ ]+\| .+\s*\|$/,
@@ -32,28 +32,20 @@ module.exports = [
       ];
 
       let tableStartIndex = -1;
-      let tableEndIndex = -1;
 
-      // Find the start and end of the table
+      // Find the start of the table
       for (let i = 0; i < lines.length; i++) {
         if (
           tableHeaderPattern.test(lines[i]) &&
           tableSeparatorPattern.test(lines[i + 1])
         ) {
           tableStartIndex = i + 2;
-        }
-        if (
-          tableStartIndex !== -1 &&
-          patterns.every((pattern, index) =>
-            pattern.test(lines[tableStartIndex + index])
-          )
-        ) {
-          tableEndIndex = tableStartIndex + patterns.length;
           break;
         }
       }
 
-      if (tableStartIndex === -1 || tableEndIndex === -1) {
+      // If the table start is not found, report an error
+      if (tableStartIndex === -1) {
         onError({
           lineNumber: 1,
           detail: "Table pattern is missing or incorrect.",
@@ -63,9 +55,10 @@ module.exports = [
 
       // Validate the table rows
       for (let i = 0; i < patterns.length; i++) {
-        if (!patterns[i].test(lines[tableStartIndex + i])) {
+        const lineIndex = tableStartIndex + i;
+        if (!patterns[i].test(lines[lineIndex])) {
           onError({
-            lineNumber: tableStartIndex + i + 1,
+            lineNumber: lineIndex + 1,
             detail: `Table row does not match the required format: ${patterns[i]}`,
           });
         }
