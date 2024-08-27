@@ -9,7 +9,7 @@ module.exports = [
         onError({
           lineNumber: 1,
           detail:
-            "Title must follow the pattern '# CXE-ADR000X: [ Brief title of ADR ]'",
+            "Title must be on line 1 of file and follow the pattern '# CXE-ADR000X: [ Brief title of ADR ]'",
         });
       }
     },
