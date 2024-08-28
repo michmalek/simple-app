@@ -79,8 +79,8 @@ module.exports = [
       ];
 
       const optionalHeadings = [
-        /^### Positive Consequences\s*$/,
-        /^### Negative Consequences\s*$/,
+        /^### Positive Consequences.{0,50}\s*$/,
+        /^### Negative Consequences.{0,50}\s*$/,
       ];
 
       let inOptionalSection = false;
