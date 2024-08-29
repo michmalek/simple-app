@@ -4,16 +4,16 @@
 | -------- | ------- |
 | **Status:**  | Published |
 | **Author:** | Ivan Virchich, Amine Baba |
-| **Date:**    | 08-01-2024 |
+| **Date:**    | 2024-01-08 |
 | **RFC:**    | N/A |
 | **Supersedes:**    | N/A |
 | **Deprecates:**    | N/A |
 
 ## Context & Problem Statement
 
-Every project requires authentication and authorization and Gnosis is not an exception. In the past company used mix of authz techniques/methods where OAuth 2.0 with PING provider being one of the most popular choices. In the past Gnosis was also using PING. 
+Every project requires authentication and authorization and Gnosis is not an exception. In the past company used mix of authz techniques/methods where OAuth 2.0 with PING provider being one of the most popular choices. In the past Gnosis was also using PING.
 
-Fairly recently whole company started switching to Okta or proprietary DUO OAuth 2.0 provides. Where Okta is used for application that are available for Cisco's customers and partners and DUO is for application available for internal only application. Gnosis, being an internal only application, must use DUO provider. 
+Fairly recently whole company started switching to Okta or proprietary DUO OAuth 2.0 provides. Where Okta is used for application that are available for Cisco's customers and partners and DUO is for application available for internal only application. Gnosis, being an internal only application, must use DUO provider.
 
 ## Decision Drivers
 
@@ -26,12 +26,11 @@ Currently Gnosis relies on BDB-authentication microservice for DUO token validat
 
 For Machine-to-Machine (M2M) authentication Gnosis relies on yet another service - CWay OAuth. CWay contains a list of client IDs and passwords that user can use to authenticate to Gnosis. This is less secure option since CWay credentials are not rotated periodically, and it means that we have basic form of authentication in place where users need to pass in request body CWay credentials to obtain token for further M2M calls. The Resource Owner Password Credentials (ROPC) flow is unsuitable for Machine-to-Machine calls because it relies on user credentials, which are not applicable in automated, non-interactive scenarios. Additionally, ROPC poses security risks by requiring the storage of user passwords. The Client Credentials flow is designed for M2M communication, providing a secure method for service authentication using client ID and secret.
 
-Therefore, it is desirable to have a mechanism that will be fully under Gnosis developers' control that would allow us to replace BDB-authentication and CWay, provide desired flexibility, maintainability and security for UI and API authentication. 
+Therefore, it is desirable to have a mechanism that will be fully under Gnosis developers' control that would allow us to replace BDB-authentication and CWay, provide desired flexibility, maintainability and security for UI and API authentication.
 
 ## Considered Options
 
 *TODO*
-
 In the Considered Options section, we enumerate the different solutions that were evaluated. For instance: "We considered three main options to address our scalability concerns: 1) Refactoring the existing monolithic architecture into a microservices architecture, 2) Scaling vertically by upgrading our server hardware, and 3) Implementing a serverless architecture to allow for on-demand scaling."
 
 ## Decision Outcome
@@ -58,5 +57,4 @@ For API, M2M, authentication Client Credentials flow will be used. Machine-to-ma
 ## Resources
 
 *TODO*
-
 Finally, the Resources section provides references and supporting materials that were used to inform the decision. An example might be: "To inform our decision, we consulted various resources including the book 'Building Microservices' by Sam Newman, numerous case studies on microservices adoption by leading tech companies, and performance benchmarks published by cloud service providers. Internal discussions with our development and operations teams also provided valuable insights into the practical implications of the change."
