@@ -84,35 +84,20 @@ module.exports = [
         /^### Negative Consequences.{0,50}\s*$/,
       ];
 
-      const postResourceHeadings = [/^## Links\s*$/];
-
       let inOptionalSection = false;
-      let afterResourcesSection = false;
 
       for (let i = 1; i < params.tokens.length; i++) {
         // Start from 1 to skip the title
         const token = params.tokens[i];
 
         if (token.type === "heading_open") {
-          const heading = params.tokens[i + 1].line.trim();
+          const heading = params.tokens[i + 1].line;
 
           if (heading.match(/^## Decision Outcome\s*$/)) {
             inOptionalSection = true;
-            afterResourcesSection = false;
-          } else if (heading.match(/^## Resources\s*$/)) {
-            inOptionalSection = false;
-            afterResourcesSection = true;
-          } else if (afterResourcesSection) {
-            if (postResourceHeadings.some((pattern) => pattern.test(heading))) {
-              afterResourcesSection = false; // Valid heading found, reset state
-            } else {
-              onError({
-                lineNumber: token.lineNumber,
-                detail: `Only "## Links" is allowed after "## Resources". Found: ${heading}`,
-              });
-              afterResourcesSection = false; // Ensure it only happens once
-            }
-          } else if (inOptionalSection) {
+          }
+
+          if (inOptionalSection) {
             if (
               !optionalHeadings.some((pattern) => pattern.test(heading)) &&
               heading.match(/^##/) &&
@@ -128,15 +113,20 @@ module.exports = [
                 detail: `Only "### Positive Consequences" and "### Negative Consequences" are allowed between "## Decision Outcome" and "## Resources". Found: ${heading}`,
               });
             }
-          } else if (
+          }
+
+          if (
             !validHeadings.some((pattern) => pattern.test(heading)) &&
-            !optionalHeadings.some((pattern) => pattern.test(heading)) &&
-            !postResourceHeadings.some((pattern) => pattern.test(heading))
+            !optionalHeadings.some((pattern) => pattern.test(heading))
           ) {
             onError({
               lineNumber: token.lineNumber,
               detail: `Unexpected heading: ${heading}`,
             });
+          }
+
+          if (heading.match(/^## Resources\s*$/)) {
+            inOptionalSection = false;
           }
         }
       }
