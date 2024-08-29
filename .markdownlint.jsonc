@@ -222,7 +222,8 @@
       "## Considered Options",
       "## Decision Outcome",
       "*",
-      "## Resources"
+      "## Resources",
+      "*"
     ],
     // Match case of headings
     "match_case": false
