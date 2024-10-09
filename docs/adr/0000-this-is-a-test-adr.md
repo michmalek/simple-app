@@ -1,4 +1,4 @@
-# CXEWWWWWWW-ADR0000: This is a Test ADR
+# CXEwwww-ADR0000: This is a Test ADR
 
 | | |
 | -------- | ------- |
